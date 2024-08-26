@@ -1,4 +1,6 @@
-This is the repository for the [Nand2Tetris](https://www.nand2tetris.org/) course. In this course, we build a computer from scratch using only NAND gates. Part 1 of the course covers the following topics:
+This is the repository for the [Nand2Tetris](https://www.nand2tetris.org/) courses. In the first course, we build a computer from scratch using only NAND gates. 
+
+Part 1 of the course covers the following topics:
 
 - Boolean Logic and Boolean Arithmetic
 - Logic Gates
