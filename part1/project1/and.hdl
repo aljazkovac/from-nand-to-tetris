@@ -1,0 +1,31 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/And.hdl
+/**
+ * And gate:
+ * if (a and b) out = 1, else out = 0 
+ */
+CHIP And {
+    IN a, b;
+    OUT out;
+    
+    // To implement an And gate using a Nand gate, we need to negate the output of the Nand gate.
+    PARTS:
+    Nand(a=a, b=b, out=nandout);
+    Not(in=nandout, out=out);
+
+    // Truth table of a Nand gate:
+    // a    b   out
+    // 0    0   1
+    // 0    1   1
+    // 1    0   1
+    // 1    1   0 
+
+    // Truth table of a And gate:
+    // a    b   out
+    // 0    0   0
+    // 0    1   0
+    // 1    0   0
+    // 1    1   1
+}

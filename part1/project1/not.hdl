@@ -1,0 +1,29 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Not.hdl
+/**
+ * Not gate:
+ * if (in) out = 0, else out = 1
+ */
+CHIP Not {
+    IN in;
+    OUT out;
+
+    PARTS:
+    Nand(a=in, b=in, out=out);
+    
+    // Remember the truth table of a Nand gate:
+    // a    b   out
+    // 0    0   1
+    // 0    1   1
+    // 1    0   1
+    // 1    1   0 
+
+    // The truth table of a Not gate is:
+    // in    out
+    // 0     1 
+    // 1     0
+
+    // So, if both inputs are the same, a Nand gate will act as a Not gate.
+}

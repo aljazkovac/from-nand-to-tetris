@@ -1,0 +1,36 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/1/Or.hdl
+/**
+ * Or gate:
+ * if (a or b) out = 1, else out = 0 
+ */
+CHIP Or {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+
+    // The Nand gate can be written as NAND(a, b) = NOT(a AND b)
+    // To implement an Or gate using Nand gates:
+    // 1. Negate both inputs using Nand gates (since Nand(a,a) acts as Not(a))
+    // 2. Apply Nand to the negated inputs (De Morgan's law: a OR b = NOT(NOT(a) AND NOT(b)))
+    Nand(a=a, b=a, out=notA);
+    Nand(a=b, b=b, out=notB);
+    Nand(a=notA, b=notB, out=out);
+
+    // Truth table of a Nand gate:
+    // a    b   out
+    // 0    0   1
+    // 0    1   1
+    // 1    0   1
+    // 1    1   0 
+
+    // Truth table of an Or gate:
+    // a    b   out
+    // 0    0   0
+    // 0    1   1
+    // 1    0   1
+    // 1    1   1
+}
