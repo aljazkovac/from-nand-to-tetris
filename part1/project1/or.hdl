@@ -11,26 +11,28 @@ CHIP Or {
     OUT out;
 
     PARTS:
-
-    // The Nand gate can be written as NAND(a, b) = NOT(a AND b)
-    // To implement an Or gate using Nand gates:
-    // 1. Negate both inputs using Nand gates (since Nand(a,a) acts as Not(a))
-    // 2. Apply Nand to the negated inputs (De Morgan's law: a OR b = NOT(NOT(a) AND NOT(b)))
-    Nand(a=a, b=a, out=notA);
-    Nand(a=b, b=b, out=notB);
-    Nand(a=notA, b=notB, out=out);
-
-    // Truth table of a Nand gate:
-    // a    b   out
-    // 0    0   1
-    // 0    1   1
-    // 1    0   1
-    // 1    1   0 
-
     // Truth table of an Or gate:
     // a    b   out
     // 0    0   0
     // 0    1   1
     // 1    0   1
     // 1    1   1
+
+    // Boolean expression: (NOT(a) AND b) OR (a AND NOT(b)) OR (a AND b)
+    // DeMorgan's law states: NOT(a OR b) = NOT(a) AND NOT(b), which simplifies to (a OR b) = NOT(NOT(a) AND NOT(b))
+
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    And(a=notA, b=notB, out=notAandNotB);
+    Not(in=notAandNotB, out=out);
+
+    // We could also implement this using NAND gates since a NAND gate can be written as (a NAND b) = NOT(a AND b)
+    // Therefore the expression could also be (a OR b) = NAND(NOT(a) AND NOT(b))
+    // Then our solution would be:
+
+    // Not(in=a, out=notA);
+    // Not(in=b, out=notB);
+    // Nand(a=notA, b=notB, out=out)
+
+    // I am not sure which one is preferred.
 }

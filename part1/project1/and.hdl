@@ -10,10 +10,13 @@ CHIP And {
     IN a, b;
     OUT out;
     
-    // To implement an And gate using a Nand gate, we need to negate the output of the Nand gate.
     PARTS:
-    Nand(a=a, b=b, out=nandout);
-    Not(in=nandout, out=out);
+    // Truth table of a And gate:
+    // a    b   out
+    // 0    0   0
+    // 0    1   0
+    // 1    0   0
+    // 1    1   1
 
     // Truth table of a Nand gate:
     // a    b   out
@@ -22,10 +25,12 @@ CHIP And {
     // 1    0   1
     // 1    1   0 
 
-    // Truth table of a And gate:
-    // a    b   out
-    // 0    0   0
-    // 0    1   0
-    // 1    0   0
-    // 1    1   1
+    // To implement an And gate using a Nand gate, we need to negate the output of the Nand gate.
+    // (a NAND b) = NOT(a AND b)
+    // (a AND b) = NOT(NOT(a AND b))
+
+    Nand(a=a, b=b, out=nandout);
+    Not(in=nandout, out=out);
+
+
 }

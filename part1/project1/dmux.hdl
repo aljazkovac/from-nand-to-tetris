@@ -13,7 +13,14 @@ CHIP DMux {
 
     PARTS:
 
-    // The DMux gate can be written as:
+    // Truth table of a DEMUX gate:
+    // sel in  a   b
+    // 0   0   0   0
+    // 0   1   1   0
+    // 1   0   0   0
+    // 1   1   0   1
+
+    // The DMUX gate can be written as:
     // a = (in AND NOT sel)
     // b = (in AND sel)
 

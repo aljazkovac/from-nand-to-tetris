@@ -13,6 +13,7 @@ CHIP Not16 {
 
     PARTS:
     // Apply Not gate to each bit in the 16-bit input
+
     Not(in=in[0], out=out[0]);
     Not(in=in[1], out=out[1]);
     Not(in=in[2], out=out[2]);

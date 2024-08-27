@@ -11,19 +11,20 @@ CHIP Not {
     OUT out;
 
     PARTS:
-    Nand(a=in, b=in, out=out);
-    
-    // Remember the truth table of a Nand gate:
+    // Truth table of a Not gate:
+    // in    out
+    // 0     1 
+    // 1     0
+
+    // Truth table of a Nand gate:
     // a    b   out
     // 0    0   1
     // 0    1   1
     // 1    0   1
     // 1    1   0 
 
-    // The truth table of a Not gate is:
-    // in    out
-    // 0     1 
-    // 1     0
+    // If both inputs are the same, a Nand gate will act as a Not gate.
+    // (a NAND b) = NOT(a AND b)
 
-    // So, if both inputs are the same, a Nand gate will act as a Not gate.
+    Nand(a=in, b=in, out=out);
 }

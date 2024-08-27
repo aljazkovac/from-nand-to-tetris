@@ -11,12 +11,23 @@ CHIP Mux {
     OUT out;
 
     PARTS:
+    // Truth table of a MUX gate:
+    // sel a   b   out   
+    // 0   0   0   0
+    // 0   0   1   0
+    // 0   1   0   1
+    // 0   1   1   1
+    // 1   0   0   0
+    // 1   0   1   1
+    // 1   1   0   0
+    // 1   1   1   1
+
     // The Mux gate can be written as:
-    // out = (a AND NOT sel) OR (b AND sel)
+    // (NOT sel AND a and NOT b) OR (NOT sel AND a AND b) OR (sel AND NOT a AND b) OR (sel AND a and b) =
+    // (NOT sel AND a) OR (sel AND b)
 
     Not(in=sel, out=notSel);
-    And(a=a, b=notSel, out=aAndNotSel);
-    And(a=b, b=sel, out=bAndSel);
-    Or(a=aAndNotSel, b=bAndSel, out=out);
-
+    And(a=a, b=notSel, out=notSelAndA);
+    And(a=b, b=sel, out=selAndB);
+    Or(a=notSelAndA, b=selAndB, out=out);
 }

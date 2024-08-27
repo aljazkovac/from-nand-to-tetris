@@ -11,21 +11,18 @@ CHIP Xor {
     OUT out;
 
     PARTS:
-
-    // The Xor gate can be written as:
-    // (a AND NOT(b)) OR (NOT(a) AND b) = (a OR b) AND (NOT(a) OR NOT(b))
-    // So we can implement the Xor gate using the Or and And gates. 
-
-    Or(a=a, b=b, out=orOut);
-    Not(in=a, out=notA);
-    Not(in=b, out=notB);
-    Or(a=notA, b=notB, out=orOut2);
-    And(a=orOut, b=orOut2, out=out);
-
     // Truth table of an Xor gate:
     // a    b   out
     // 0    0   0
     // 0    1   1
     // 1    0   1
     // 1    1   0
+    // The Xor gate can be written as:
+    // (NOT(a) AND b) OR (a AND NOT(b))
+
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    And(a=notA, b=b, out=notAandB);
+    And(a=a, b=notB, out=aAndNotB);
+    Or(a=aAndNotB, b=notAandB, out=out);
 }
