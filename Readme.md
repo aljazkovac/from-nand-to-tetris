@@ -14,4 +14,4 @@ Part I consists of five projects:
 2. Boolean Arithmetic and the ALU (Arithmetic Logic Unit)
 3. etc.
 
-Feel free to check out my [highlights and notes on the course](https://github.com/aljazkovac/from-nand-to-tetris/tree/main/).
+Feel free to check out my [highlights and notes on the course](https://aljazkovac.github.io/posts/FromNand2Tetris/).
