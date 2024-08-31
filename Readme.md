@@ -1,30 +1,17 @@
-This is the repository for the [Nand2Tetris](https://www.nand2tetris.org/) courses. In the first course, we build a computer from scratch using only NAND gates. 
+# Overview
 
-Part 1 of the course covers the following topics:
+In this famous course (often regarded as one of the best courses ever designed for Computer Science), we build a computer
+from scratch, and then, using a higher-level programming language that we design ourselves, develop a program that runs on
+that very computer.
 
-- Boolean Logic and Boolean Arithmetic
-- Logic Gates
-- [Hardware Description Language (HDL)](https://en.wikipedia.org/wiki/Hardware_description_language)
-- Hardware Simulation
-- Multi-bit Buses
+This means that we go through all the building blocks a modern computer needs to be able to run software. In Part I we design
+the hardware, and in Part II we focus on the software.
 
-Projects:
+Part I consists of five projects:
 
-1. In Project 1, we build the basic logic gates. We use the course's HDL to describe the gates and simulate them. The gates are:
+1. Boolean functions and gate logic: we design our own basic chips, using the course's HDL (Hardware Descriptive Language), e.g.
+   And, Not, Or, Xor, Mux, Dmux, etc.
+2. Boolean Arithmetic and the ALU (Arithmetic Logic Unit)
+3. etc.
 
-- Nand (given)
-- Not
-- And
-- Or
-- Xor
-- Mux
-- DMux
-- Not16
-- And16
-- Or16
-- Mux16
-- Or8Way
-- Mux4Way16
-- Mux8Way16
-- DMux4Way
-- DMux8Way
+Feel free to check out my [highlights and notes on the course](https://github.com/aljazkovac/from-nand-to-tetris/tree/main/).
