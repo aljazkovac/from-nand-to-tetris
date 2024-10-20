@@ -10,7 +10,6 @@
 
 //// Replace this comment with your code.
 
-(MAINLOOP)
 
 // Set the start screen address
 @SCREEN
@@ -18,12 +17,15 @@ D=A
 @addr
 M=D
 
-// Set the number of words
-@8192
+// Set the end screen address
+@SCREEN
 D=A
-@words
+@8192
+D=D+A
+@endscreenaddr
 M=D
 
+(MAINLOOP)
 // Listen to keyboard input
 @KBD
 D=M
@@ -32,60 +34,78 @@ D=M
 @BLACK
 D;JNE
 
-// Whiten screen if D-reg (keyboard input) contains 0.
-@WHITE
-D;JEQ
+@MAINLOOP
+0;JMP
 
 // Blacken screen
 (BLACK)
-@KBD
-D=M
-
-@WHITE
-D;JEQ
-
 @addr
 A=M
 M=-1
-@addr
-D=M
-@1
-D=D+A
-@addr
-M=D
 
-@words
-MD=M-1
-@BLACK
-D;JGT
-
-// Whiten screen
-(WHITE)
 @KBD
 D=M
+@WHITE
+D;JEQ
+
+// Set new address
+@addr
+D=M
+MD=D+1
+
+// Check if outside of screen
+// highscreenaddr = 16384 (SCREEN) + 8192 = 24576
+// if (addr - 24576 > 0) => outside of screen
+@24576
+D=D-A
+@OUTSIDESCREENHIGH
+D;JGT
 
 @BLACK
-D;JNE
+0;JMP
 
+// WHITE
+(WHITE)
 @addr
 A=M
 M=0
-@addr
-D=M
-@1
-D=D-A
-@addr
-M=D
 
-// Calculate the remaining words to whiten
-// Calculation: 8192 - words left to blacken
-@words
+@KBD
 D=M
-@8192
-D=A-D
+@BLACK
+D;JNE
+
+// Set new address
+@addr
+D=M
 MD=D-1
+
+// Check if outside of screen
+// lowscreenaddr = 16384 
+// if (addr - 16384 < 0) => outside of screen
+@SCREEN
+D=D-A
+@OUTSIDESCREENLOW
+D;JLT
+
 @WHITE
-D;JGT
+0;JMP
+
+(OUTSIDESCREENHIGH)
+@KBD
+D=M
+@WHITE
+D;JEQ
+@OUTSIDESCREENHIGH
+0;JMP
+
+(OUTSIDESCREENLOW)
+@KBD
+D=M
+@BLACK
+D;JNE
+@OUTSIDESCREENLOW
+0;JMP
 
 // Unconditional jump to start of loop
 @MAINLOOP
