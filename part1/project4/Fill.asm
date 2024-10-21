@@ -48,18 +48,20 @@ D=M
 @WHITE
 D;JEQ
 
+// Check if outside of screen
+// highscreenaddr = 16384 (SCREEN) + 8192 = 24576
+// if (addr - 24576 = 0) => egde of screen
+@addr
+D=M
+@24576
+D=D-A
+@OUTSIDESCREENHIGH
+D;JEQ
+
 // Set new address
 @addr
 D=M
 MD=D+1
-
-// Check if outside of screen
-// highscreenaddr = 16384 (SCREEN) + 8192 = 24576
-// if (addr - 24576 > 0) => outside of screen
-@24576
-D=D-A
-@OUTSIDESCREENHIGH
-D;JGT
 
 @BLACK
 0;JMP
@@ -75,18 +77,20 @@ D=M
 @BLACK
 D;JNE
 
+// Check if outside of screen
+// lowscreenaddr = 16384 
+// if (addr - 16384 = 0) => edge of screen
+@addr
+D=M
+@SCREEN
+D=D-A
+@OUTSIDESCREENLOW
+D;JEQ
+
 // Set new address
 @addr
 D=M
 MD=D-1
-
-// Check if outside of screen
-// lowscreenaddr = 16384 
-// if (addr - 16384 < 0) => outside of screen
-@SCREEN
-D=D-A
-@OUTSIDESCREENLOW
-D;JLT
 
 @WHITE
 0;JMP
