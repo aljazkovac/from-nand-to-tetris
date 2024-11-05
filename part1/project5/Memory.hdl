@@ -26,11 +26,11 @@ CHIP Memory {
 
     PARTS:
     DMux(in=load, sel=address[14], a=loadRAM, b=loadScreenOrKeyboard);
-    Dmux(in=loadScreenOrKeyboard, sel=address[13], a=loadScreen, b=loadKeyboard)
+    DMux(in=loadScreenOrKeyboard, sel=address[13], a=loadScreen, b=loadKeyboard);
     RAM16K(in=in, load=loadRAM, address=address[0..13], out=outRAM);
     Screen(in=in, load=loadScreen, address=address[0..12], out=outSCREEN);
     Keyboard(out=outKEYBOARD);
     Mux16(a=outRAM, b=outSCREEN, sel=address[14], out=outRAMorSCREEN);
-    Mux16(a=outSCREEN, b=outKEYBOARD, sel=address[13], out=outSCREENorKEYBOARD)
+    Mux16(a=outSCREEN, b=outKEYBOARD, sel=address[13], out=outSCREENorKEYBOARD);
     Mux16(a=outRAMorSCREEN, b=outSCREENorKEYBOARD, sel=loadKeyboard, out=out);
 }
