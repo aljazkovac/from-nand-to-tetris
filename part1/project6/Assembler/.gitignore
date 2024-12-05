@@ -1,0 +1,29 @@
+# Build Folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+UserPrefs.xml
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Debug configuration files
+Assembler-Debug.json
