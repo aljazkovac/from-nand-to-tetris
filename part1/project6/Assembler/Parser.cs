@@ -7,7 +7,7 @@ namespace Assembler;
 /// Represents a parser for Hack assembly language.
 /// </summary>
 /// <param name="file">The path to the input file containing Hack assembly code.</param>
-public class Parser(string file) // TODO: Should this be a string?
+public class Parser(string file)
 {
     /// <summary>
     /// Reads the next command from the input and makes it the current command. Should be called only
