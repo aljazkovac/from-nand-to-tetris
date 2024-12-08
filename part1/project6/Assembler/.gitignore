@@ -1,29 +1,38 @@
-# Build Folders
+# .NET build outputs
 bin/
 obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
 
-# User-specific files
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-UserPrefs.xml
-
-# Visual Studio Code
-.vscode/
-
-# Rider
+# Rider specific
 .idea/
+*.sln.iml
+.idea/*.xml
+*.DotSettings.user
 
-# MacOS
-.DS_Store
+# Visual Studio files (in case others use VS)
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
 
-# Logs
+# .NET specific
+*.dll
+*.pdb
+*.cache
 *.log
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
-# Temporary files
-*.tmp
-*.temp
+# Documentation
+[Dd]oc/
+[Dd]ocs/
+_site/
 
-# Debug configuration files
-Assembler-Debug.json
+# OS specific
+.DS_Store
+Thumbs.db
