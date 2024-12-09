@@ -9,13 +9,32 @@ namespace Assembler;
 /// <param name="file">The path to the input file containing Hack assembly code.</param>
 public class Parser(string file)
 {
+    private readonly StreamReader _reader = new(file);
+    
+    /// <summary>
+    /// The current command being processed from the input file.
+    /// </summary>
+    public string? CurrentCommand;
+    
     /// <summary>
     /// Reads the next command from the input and makes it the current command. Should be called only
     /// if hasMoreCommands() is true. Initially there is no current command.
     /// </summary>
     public void Advance()
     {
-        
+        string? line = _reader.ReadLine();
+        while (line is not null)
+        {
+            if (line.StartsWith("//") || string.IsNullOrEmpty(line))
+            {
+                line = _reader.ReadLine();
+            }
+            else
+            {
+                CurrentCommand = line;
+                return;
+            }
+        }
     }
 
     /// <summary>
@@ -62,7 +81,7 @@ public class Parser(string file)
     /// </list>
     /// </returns>
     
-    private static InstructionType DetermineInstructionType(string instruction)
+    public static InstructionType DetermineInstructionType(string instruction)
     {
         if (instruction.StartsWith('@'))
         {
@@ -116,7 +135,7 @@ public class Parser(string file)
     /// </returns>
     public bool HasMoreCommands()
     {
-        return true;
+        return _reader.Peek() != -1;
     }
 }
 
