@@ -45,9 +45,42 @@ public class Parser(string file)
     /// A string representing the dest mnemonic in the current C-command.
     /// Returns <c>null</c> if the command type is not <see cref="InstructionType.CInstruction"/>.
     /// </returns>
-    public string Comp()
+    public string? Comp()
     {
-        return "FIX";
+        if (CurrentCommand == null)
+        {
+            throw new ArgumentNullException(nameof(CurrentCommand), "Current command is null");
+        }
+        
+        if (!DetermineInstructionType(CurrentCommand).Equals(InstructionType.CInstruction))
+        {
+            return null;
+        }
+
+        // Possible formats:
+        // 0 (both dest and jump are empty)
+        // M=D (jump is empty)
+        // 0;JMP (dest is empty)
+        // M=D;JGT (all parts present)
+
+        if (Dest() == "empty" && Jump() == "empty")
+        {
+            return CurrentCommand.Trim();
+        }
+
+        if (Jump() == "empty")
+        {
+            return CurrentCommand.Split('=').Last().Trim();
+        }
+
+        if (Dest() == "empty")
+        {
+            return CurrentCommand.Split(';').First().Trim();
+        }
+
+        char[] delimiterChars = [';', '='];
+        return CurrentCommand.Split(delimiterChars)[1].Trim();
+
     }
 
     /// <summary>
@@ -58,9 +91,42 @@ public class Parser(string file)
     /// A string representing the dest mnemonic in the current C-command.
     /// Returns <c>null</c> if the command type is not <see cref="InstructionType.CInstruction"/>.
     /// </returns>
-    public string Dest()
+    public string? Dest()
     {
-        return "FIX";
+        if (CurrentCommand == null)
+        {
+            throw new ArgumentNullException(nameof(CurrentCommand), "Current command is null");
+        }
+
+        if (!DetermineInstructionType(CurrentCommand).Equals(InstructionType.CInstruction))
+        {
+            return null;
+        }
+        
+        return !CurrentCommand.Contains('=') ? "empty" : CurrentCommand.Split('=').First().Trim();
+    }
+    
+    /// <summary>
+    /// Returns the jump mnemonic in the current C-command (8 possibilities).
+    /// Should be called only when <see cref="InstructionType"/> is <see cref="InstructionType.CInstruction"/>.
+    /// </summary>
+    /// <returns>
+    /// A string representing the dest mnemonic in the current C-command.
+    /// Returns <c>null</c> if the command type is not <see cref="InstructionType.CInstruction"/>.
+    /// </returns>
+    public string? Jump()
+    {
+        if (CurrentCommand == null)
+        {
+            throw new ArgumentNullException(nameof(CurrentCommand), "Current command is null");
+        }
+
+        if (!DetermineInstructionType(CurrentCommand).Equals(InstructionType.CInstruction))
+        {
+            return null;
+        }
+
+        return !CurrentCommand.Contains(';') ? "empty" : CurrentCommand.Split(';').Last().Trim();
     }
 
     /// <summary>
@@ -102,19 +168,6 @@ public class Parser(string file)
     }
 
     /// <summary>
-    /// Returns the jump mnemonic in the current C-command (8 possibilities).
-    /// Should be called only when <see cref="InstructionType"/> is <see cref="InstructionType.CInstruction"/>.
-    /// </summary>
-    /// <returns>
-    /// A string representing the dest mnemonic in the current C-command.
-    /// Returns <c>null</c> if the command type is not <see cref="InstructionType.CInstruction"/>.
-    /// </returns>
-    public string Jump()
-    {
-        return "FIX";
-    }
-
-    /// <summary>
     /// Retrieves the symbol or decimal value (Xxx) of the current command, such as @Xxx or (Xxx).
     /// Should be called only when <see cref="InstructionType"/> is <see cref="InstructionType.AInstruction"/> or <see cref="InstructionType.LInstruction"/>.
     /// </summary>
@@ -124,7 +177,7 @@ public class Parser(string file)
     /// </returns>
     public string Symbol()
     {
-        return "FIX";
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -153,8 +206,8 @@ public enum InstructionType
     /// <summary>
     /// Represents a C-instruction.
     /// The form of the instruction is dest=comp;jump.
-    /// Either dest, comp, or jump may be omitted.
-    /// If dest is empty, the "=" is also omitted.
+    /// Either the dest or the jump fields may be empty.
+    /// If dest is empty, the "=" is omitted.
     /// If jump is empty, the semicolon is omitted.
     /// </summary>
     CInstruction,

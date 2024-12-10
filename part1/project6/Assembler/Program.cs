@@ -14,14 +14,22 @@ internal abstract class Program
         while (parser.HasMoreCommands())
         {
             parser.Advance();
-            if (parser.CurrentCommand != null)
+            if (parser.CurrentCommand == null)
             {
-                Console.WriteLine(parser.CurrentCommand + " == " + Parser.DetermineInstructionType(parser.CurrentCommand));
-
+                Console.WriteLine("Current command is null.");
             }
             else
             {
-                Console.WriteLine("Current command is null.");
+                Console.WriteLine(parser.CurrentCommand + " == " + Parser.DetermineInstructionType(parser.CurrentCommand));
+
+                if (!Parser.DetermineInstructionType(parser.CurrentCommand).Equals(InstructionType.CInstruction))
+                {
+                    continue;
+                }
+
+                Console.WriteLine("Dest part: " + parser.Dest());
+                Console.WriteLine("Comp part: " + parser.Comp());
+                Console.WriteLine("Jump part: " + parser.Jump());
             }
         }
     }
