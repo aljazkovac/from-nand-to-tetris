@@ -175,9 +175,14 @@ public class Parser(string file)
     /// A string representing the symbol or decimal value of the current command.
     /// Returns <c>null</c> if the command type is not <see cref="InstructionType.AInstruction"/> or <see cref="InstructionType.LInstruction"/>.
     /// </returns>
-    public string Symbol()
+    public string? Symbol()
     {
-        throw new NotImplementedException();
+        if (CurrentCommand == null)
+        {
+            throw new ArgumentNullException(nameof(CurrentCommand), "Current command is null");
+        }
+
+        return !DetermineInstructionType(CurrentCommand).Equals(InstructionType.AInstruction) ? null : CurrentCommand[1..];
     }
 
     /// <summary>
