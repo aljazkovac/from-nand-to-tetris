@@ -182,7 +182,17 @@ public class Parser(string file)
             throw new ArgumentNullException(nameof(CurrentCommand), "Current command is null");
         }
 
-        return !DetermineInstructionType(CurrentCommand).Equals(InstructionType.AInstruction) ? null : CurrentCommand[1..];
+        if (DetermineInstructionType(CurrentCommand).Equals(InstructionType.AInstruction))
+        {
+            return CurrentCommand[1..];
+        }
+
+        if (DetermineInstructionType(CurrentCommand).Equals(InstructionType.LInstruction))
+        {
+            return CurrentCommand.TrimStart('(').TrimEnd(')').Trim();
+        }
+
+        return null;
     }
 
     /// <summary>
