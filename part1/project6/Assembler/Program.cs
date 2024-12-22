@@ -97,12 +97,12 @@ internal abstract class Program
                         {
                             string? variable = parser.Symbol();
                             SymbolTable.AddEntry(variable ?? throw new InvalidOperationException("Symbol cannot be null."), variableAddress);
-                            variableAddress++;
                             const string firstBit = "0";
                             string bits = Convert.ToString(variableAddress, 2).PadLeft(15, '0');
                             string translation = firstBit + bits;
                             Console.WriteLine("Machine code for variable A-instruction " + parser.CurrentCommand + " : " + translation);
                             lines.Add(translation);
+                            variableAddress++;
                         }
                     }
                 }
