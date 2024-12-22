@@ -40,9 +40,10 @@ internal abstract class Program
         
         // The second pass (translate A-instructions and C-instructions, fetch L-instructions from the symbol table,
         // and handle variables)
+        parser.DisposeReader();
+        parser = new Parser(file);
         var lines = new List<string>();
         var variableAddress = 16;
-        // TODO: Probably need to reset the parser here, or create a new one?
         while (parser.HasMoreCommands())
         {
             parser.Advance();

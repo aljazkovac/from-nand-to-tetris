@@ -205,6 +205,14 @@ public class Parser(string file)
     {
         return _reader.Peek() != -1;
     }
+
+    /// <summary>
+    /// Resets the reader.
+    /// </summary>
+    public void DisposeReader()
+    {
+        _reader.Dispose();
+    }
 }
 
 /// <summary>
