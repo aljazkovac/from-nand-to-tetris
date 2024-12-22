@@ -22,12 +22,12 @@ public class Parser(string file)
     /// </summary>
     public void Advance()
     {
-        string? line = _reader.ReadLine();
+        string? line = _reader.ReadLine()?.Trim();
         while (line is not null)
         {
             if (line.StartsWith("//") || string.IsNullOrEmpty(line))
             {
-                line = _reader.ReadLine();
+                line = _reader.ReadLine()?.Trim();
             }
             else
             {
